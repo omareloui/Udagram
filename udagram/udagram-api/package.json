@@ -11,9 +11,9 @@
     "tsc": "tsc",
     "dev": "ts-node-dev --respawn ./src/server.ts",
     "prod": "tsc && node ./www/server.js",
-    "clean": "rm -rf www/ || true",
-    "deploy": "npm run build && eb list && eb use udagram-api-dev && eb deploy",
-    "build": "npm install . && npm run clean && tsc && cp -rf src/config www/config && cp -R .elasticbeanstalk www/.elasticbeanstalk && cp .npmrc www/.npmrc && cp package.json www/package.json && cd www && zip -r Archive.zip . && cd ..",
+    "clean": "rimraf www",
+    "deploy": "npm run build && eb list && eb use udagram-api && eb deploy",
+    "build": "npm install . && npm run clean && tsc && copyfiles src/config www/config && copyfiles .elasticbeanstalk www/.elasticbeanstalk && copyfiles .npmrc www/.npmrc && copyfiles package.json www/package.json && cd www && bestzip Archive.zip . && cd ..",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
@@ -44,11 +44,14 @@
     "@types/validator": "^10.9.0",
     "@typescript-eslint/eslint-plugin": "^2.19.2",
     "@typescript-eslint/parser": "^2.19.2",
+    "bestzip": "^2.2.1",
     "chai": "^4.2.0",
     "chai-http": "^4.2.1",
+    "copyfiles": "^2.4.1",
     "eslint": "^6.8.0",
     "eslint-config-google": "^0.14.0",
     "mocha": "^6.1.4",
+    "rimraf": "^3.0.2",
     "ts-node-dev": "^1.0.0-pre.32",
     "typescript": "^3.9.10"
   }
